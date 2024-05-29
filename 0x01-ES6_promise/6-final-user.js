@@ -56,28 +56,73 @@ import uploadPhoto from './5-photo-reject';
 //   }));
 // }
 
-export default async function handleProfileSignup(
-  firstName,
-  lastName,
-  fileName,
-) {
+// export default async function handleProfileSignup(
+//   firstName,
+//   lastName,
+//   fileName,
+// ) {
+//   try {
+//     const [user, error] = await Promise.all([
+//       signUpUser(firstName, lastName),
+//       uploadPhoto(fileName),
+//     ]);
+//
+//     return [
+//       { status: 'fulfilled', value: user },
+//       {
+//         status: error ? 'rejected' : 'fulfilled',
+//         value: error || 'Photo upload successful',
+//       },
+//     ];
+//   } catch (error) {
+//     return [
+//       { status: 'rejected', value: error },
+//       { status: 'rejected', value: 'Photo upload failed' },
+//     ];
+//   }
+// }
+
+// async function handleProfileSignup(firstName, lastName, fileName) {
+//   const promises = [signUpUser(firstName, lastName), uploadPhoto(fileName)];
+//
+//   const results = await Promise.allSettled(promises);
+//   return results;
+// }
+//
+// export default handleProfileSignup;
+
+async function handleProfileSignup(firstName, lastName, fileName) {
   try {
-    const [user, error] = await Promise.all([
-      signUpUser(firstName, lastName),
-      uploadPhoto(fileName),
+    const userPromise = signUpUser(firstName, lastName);
+    const photoPromise = uploadPhoto(fileName);
+
+    const [userResult, photoResult] = await Promise.allSettled([
+      userPromise,
+      photoPromise,
     ]);
 
-    return [
-      { status: 'fulfilled', value: user },
+    const resultArray = [
       {
-        status: error ? 'rejected' : 'fulfilled',
-        value: error || 'Photo upload successful',
+        status: userResult.status,
+        value:
+          userResult.status === 'fulfilled'
+            ? userResult.value
+            : userResult.reason.message,
+      },
+      {
+        status: photoResult.status,
+        value:
+          photoResult.status === 'fulfilled'
+            ? photoResult.value
+            : photoResult.reason.message,
       },
     ];
+
+    return resultArray;
   } catch (error) {
-    return [
-      { status: 'rejected', value: error },
-      { status: 'rejected', value: 'Photo upload failed' },
-    ];
+    console.error('Error in handleProfileSignup:', error);
+    throw error;
   }
 }
+
+export default handleProfileSignup;
