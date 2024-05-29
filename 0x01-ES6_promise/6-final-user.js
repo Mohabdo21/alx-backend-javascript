@@ -13,30 +13,45 @@ import uploadPhoto from './5-photo-reject';
 //     .catch((err) => ({ status: 'rejected', value: err }));
 // }
 
+// export default async function handleProfileSignup(
+//   firstName,
+//   lastName,
+//   fileName,
+// ) {
+//   const userPromise = signUpUser(firstName, lastName)
+//     .then((value) => ({
+//       status: 'fulfilled',
+//       value,
+//     }))
+//     .catch((error) => ({
+//       status: 'rejected',
+//       value: error,
+//     }));
+//
+//   const photoPromise = uploadPhoto(fileName)
+//     .then((value) => ({
+//       status: 'fulfilled',
+//       value,
+//     }))
+//     .catch((error) => ({
+//       status: 'rejected',
+//       value: error,
+//     }));
+//
+//   return Promise.all([userPromise, photoPromise]);
+// }
+
 export default async function handleProfileSignup(
   firstName,
   lastName,
   fileName,
 ) {
-  const userPromise = signUpUser(firstName, lastName)
-    .then((value) => ({
-      status: 'fulfilled',
-      value,
-    }))
-    .catch((error) => ({
-      status: 'rejected',
-      value: error,
-    }));
+  const promises = [signUpUser(firstName, lastName), uploadPhoto(fileName)];
 
-  const photoPromise = uploadPhoto(fileName)
-    .then((value) => ({
-      status: 'fulfilled',
-      value,
-    }))
-    .catch((error) => ({
-      status: 'rejected',
-      value: error,
-    }));
+  const results = await Promise.allSettled(promises);
 
-  return Promise.all([userPromise, photoPromise]);
+  return results.map((result) => ({
+    status: result.status,
+    value: result.status === 'fulfilled' ? result.value : result.reason,
+  }));
 }
