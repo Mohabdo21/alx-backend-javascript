@@ -41,17 +41,43 @@ import uploadPhoto from './5-photo-reject';
 //   return Promise.all([userPromise, photoPromise]);
 // }
 
+// export default async function handleProfileSignup(
+//   firstName,
+//   lastName,
+//   fileName,
+// ) {
+//   const promises = [signUpUser(firstName, lastName), uploadPhoto(fileName)];
+//
+//   const results = await Promise.allSettled(promises);
+//
+//   return results.map((result) => ({
+//     status: result.status,
+//     value: result.status === 'fulfilled' ? result.value : result.reason,
+//   }));
+// }
+
 export default async function handleProfileSignup(
   firstName,
   lastName,
   fileName,
 ) {
-  const promises = [signUpUser(firstName, lastName), uploadPhoto(fileName)];
+  try {
+    const [user, error] = await Promise.all([
+      signUpUser(firstName, lastName),
+      uploadPhoto(fileName),
+    ]);
 
-  const results = await Promise.allSettled(promises);
-
-  return results.map((result) => ({
-    status: result.status,
-    value: result.status === 'fulfilled' ? result.value : result.reason,
-  }));
+    return [
+      { status: 'fulfilled', value: user },
+      {
+        status: error ? 'rejected' : 'fulfilled',
+        value: error || 'Photo upload successful',
+      },
+    ];
+  } catch (error) {
+    return [
+      { status: 'rejected', value: error },
+      { status: 'rejected', value: 'Photo upload failed' },
+    ];
+  }
 }
