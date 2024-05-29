@@ -6,7 +6,7 @@ function guardrial(mathFunction) {
   } catch (error) {
     queue.push(error.toString());
   }
-  queue.push('Guadrial was processed');
+  queue.push('Guardrail was processed');
   return queue;
 }
 
