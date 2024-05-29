@@ -16,14 +16,14 @@ async function handleProfileSignup(firstName, lastName, fileName) {
       value:
         userResult.status === 'fulfilled'
           ? userResult.value
-          : userResult.reason.message,
+          : String(userResult.reason),
     },
     {
       status: photoResult.status,
       value:
         photoResult.status === 'fulfilled'
           ? photoResult.value
-          : photoResult.reason.message,
+          : String(photoResult.reason),
     },
   ];
 
