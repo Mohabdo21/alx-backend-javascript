@@ -5,7 +5,7 @@
  */
 export default class Building {
   constructor(sqft) {
-    if (this.constructor === Building) {
+    if (this.constructor !== Building) {
       throw new TypeError('Cannot instantiate from Building directly');
     }
     if (this.evacuationWarningMessage === undefined) {
