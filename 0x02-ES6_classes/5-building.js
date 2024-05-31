@@ -5,9 +5,6 @@
  */
 export default class Building {
   constructor(sqft) {
-    if (this.constructor === Building) {
-      throw new TypeError('Cannot instantiate from Building directly');
-    }
     if (typeof this.evacuationWarningMessage !== 'function') {
       throw new TypeError(
         'Class extending Building must override evacuationWarningMessage',
