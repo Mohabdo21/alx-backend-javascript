@@ -1,5 +1,10 @@
 import Car from './10-car';
 
+/**
+ *
+ * @class
+ * @classdesc EVCar inhetits from Car
+ */
 export default class EVCar extends Car {
   constructor(brand, motor, color, range) {
     super(brand, motor, color);
@@ -14,8 +19,14 @@ export default class EVCar extends Car {
     this._range = newRange;
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  cloneCar() {
-    return new Car();
+  //   cloneCar() {
+  //     return new Car();
+  //   }
+
+  /**
+   * @returns {Car}
+   */
+  static get [Symbol.species]() {
+    return Car;
   }
 }
