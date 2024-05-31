@@ -6,6 +6,11 @@ const cloneCarSymbol = Symbol('cloneCar');
  * @classdesc define a car class
  */
 export default class Car {
+  /**
+   * @param {String} brand
+   * @param {String} motor
+   * @param {String} color
+   */
   constructor(brand, motor, color) {
     this._brand = brand;
     this._motor = motor;
