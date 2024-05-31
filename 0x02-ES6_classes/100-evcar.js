@@ -19,14 +19,8 @@ export default class EVCar extends Car {
     this._range = newRange;
   }
 
-  //   cloneCar() {
-  //     return new Car();
-  //   }
-
-  /**
-   * @returns {Car}
-   */
-  static get [Symbol.species]() {
-    return Car;
+  // eslint-disable-next-line class-methods-use-this
+  cloneCar() {
+    return new Car();
   }
 }
