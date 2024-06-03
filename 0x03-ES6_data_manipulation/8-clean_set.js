@@ -1,3 +1,9 @@
+/**
+ * Returns a string of Set values that start with a specific string.
+ * @param {Set} set - The Set to get values from.
+ * @param {string} startString - The string to check for at the start of each value.
+ * @returns {string} A string of Set values that start with `startString`, separated by '-'.
+ */
 function cleanSet(set, startString) {
   if (startString === '') return '';
   let result = '';

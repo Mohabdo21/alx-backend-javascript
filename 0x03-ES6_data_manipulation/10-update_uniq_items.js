@@ -1,3 +1,7 @@
+/**
+ * Updates the quantity of unique items in a Map.
+ * @param {Map} map - The Map to update.
+ */
 function updateUniqueItem(map) {
   if (!(map instanceof Map)) {
     throw new Error('Cannot process');
