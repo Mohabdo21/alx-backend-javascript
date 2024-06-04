@@ -5,7 +5,7 @@
  * @returns {string} A string of Set values that start with `startString`, separated by '-'.
  */
 function cleanSet(set, startString) {
-  if (!startString) return '';
+  if (!startString || typeof set !== 'object') return '';
   const result = [];
   for (const item of set) {
     if (item.startsWith(startString)) {
