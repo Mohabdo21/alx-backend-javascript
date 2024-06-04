@@ -5,17 +5,18 @@
  * @returns {string} A string of Set values that start with `startString`, separated by '-'.
  */
 function cleanSet(set, startString) {
-  if (typeof set !== 'object') return '';
-  if (typeof startString !== 'string') return '';
-  if (startString.length === 0) return '';
+  if (typeof set !== 'object' || set === null || typeof startString !== 'string' || startString === '') {
+    return '';
+  }
 
-  const stringSet = [];
-  [...set].forEach((item) => {
-    if (item && item.indexOf(startString) === 0) {
-      stringSet.push(item.replace(startString, ''));
+  const result = [];
+  for (const item of set) {
+    if (typeof item === 'string' && item.startsWith(startString)) {
+      result.push(item.slice(startString.length));
     }
-  });
-  return stringSet.join('-');
+  }
+
+  return result.join('-');
 }
 
 export default cleanSet;
