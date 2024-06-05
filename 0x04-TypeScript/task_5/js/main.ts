@@ -26,7 +26,6 @@ function sumMinorCredits(subject1: MinorCredits, subject2: MinorCredits): MinorC
   };
 }
 
-// Example usage (this part can be removed if you don't want to include example usage)
 const major1: MajorCredits = { credits: 3, brand: 'MajorCredits' };
 const major2: MajorCredits = { credits: 4, brand: 'MajorCredits' };
 const minor1: MinorCredits = { credits: 2, brand: 'MinorCredits' };
