@@ -1,6 +1,5 @@
 const http = require('http');
 const fs = require('fs').promises;
-const url = require('url');
 
 const PORT = 1245;
 const databaseFile = process.argv[2];
@@ -61,12 +60,12 @@ const countStudents = async (dataFilePath) => {
  * @param {http.ServerResponse} res - The response object.
  */
 const requestHandler = async (req, res) => {
-  const parsedUrl = url.parse(req.url);
+  const path = req.url;
 
-  if (parsedUrl.pathname === '/') {
+  if (path === '/') {
     res.writeHead(200, { 'Content-Type': 'text/plain' });
     res.end('Hello Holberton School!');
-  } else if (parsedUrl.pathname === '/students') {
+  } else if (path === '/students') {
     try {
       const studentData = await countStudents(databaseFile);
       res.writeHead(200, { 'Content-Type': 'text/plain' });
