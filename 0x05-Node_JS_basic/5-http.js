@@ -68,23 +68,31 @@ const requestHandler = (req, res) => {
 
   if (path === '/') {
     const responseText = 'Hello Holberton School!';
-    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    res.setHeader('Content-Type', 'text/plain');
+    res.setHeader('Content-Length', Buffer.byteLength(responseText));
+    res.statusCode = 200;
     res.end(responseText);
   } else if (path === '/students') {
     countStudents(databaseFile)
       .then((studentData) => {
         const responseText = `This is the list of our students\n${studentData}`;
-        res.writeHead(200, { 'Content-Type': 'text/plain' });
+        res.setHeader('Content-Type', 'text/plain');
+        res.setHeader('Content-Length', Buffer.byteLength(responseText));
+        res.statusCode = 200;
         res.end(responseText);
       })
       .catch((error) => {
         const errorMessage = error.message;
-        res.writeHead(500, { 'Content-Type': 'text/plain' });
+        res.setHeader('Content-Type', 'text/plain');
+        res.setHeader('Content-Length', Buffer.byteLength(errorMessage));
+        res.statusCode = 500;
         res.end(errorMessage);
       });
   } else {
     const responseText = 'Not Found';
-    res.writeHead(404, { 'Content-Type': 'text/plain' });
+    res.setHeader('Content-Type', 'text/plain');
+    res.setHeader('Content-Length', Buffer.byteLength(responseText));
+    res.statusCode = 404;
     res.end(responseText);
   }
 };
