@@ -76,7 +76,7 @@ app.use((req, res) => {
 
 // Start the server
 app.listen(PORT, () => {
-  console.log(`Server listening at http://localhost:${PORT}`);
+  process.stdout.write(`Server listening at http://localhost:${PORT}`);
 });
 
 module.exports = app;

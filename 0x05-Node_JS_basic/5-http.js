@@ -103,7 +103,7 @@ const requestHandler = async (req, res) => {
 const app = http.createServer(requestHandler);
 
 app.listen(PORT, () => {
-  console.log(`Server listening at http://localhost:${PORT}`);
+  process.stdout.write(`Server listening at http://localhost:${PORT}`);
 });
 
 module.exports = app;
