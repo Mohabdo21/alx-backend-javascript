@@ -62,9 +62,11 @@ const countStudents = (dataFilePath) => new Promise((resolve, reject) => {
 // Route for the root path
 app.get('/', (_, res) => {
   const responseText = 'Hello Holberton School!';
-  res.setHeader('Content-Type', 'text/plain');
-  res.setHeader('Content-Length', Buffer.byteLength(responseText));
-  res.status(200).send(responseText);
+  res.writeHead(200, {
+    'Content-Type': 'text/plain',
+    'Content-Length': Buffer.byteLength(responseText),
+  });
+  res.end(responseText);
 });
 
 // Route for the /students path
@@ -72,15 +74,19 @@ app.get('/students', (_, res) => {
   countStudents(databaseFile)
     .then((studentData) => {
       const responseText = `This is the list of our students\n${studentData}`;
-      res.setHeader('Content-Type', 'text/plain');
-      res.setHeader('Content-Length', Buffer.byteLength(responseText));
-      res.status(200).send(responseText);
+      res.writeHead(200, {
+        'Content-Type': 'text/plain',
+        'Content-Length': Buffer.byteLength(responseText),
+      });
+      res.end(responseText);
     })
     .catch((error) => {
       const errorMessage = error.message;
-      res.setHeader('Content-Type', 'text/plain');
-      res.setHeader('Content-Length', Buffer.byteLength(errorMessage));
-      res.status(500).send(errorMessage);
+      res.writeHead(500, {
+        'Content-Type': 'text/plain',
+        'Content-Length': Buffer.byteLength(errorMessage),
+      });
+      res.end(errorMessage);
     });
 });
 

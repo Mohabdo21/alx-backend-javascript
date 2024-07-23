@@ -68,31 +68,35 @@ const requestHandler = (req, res) => {
 
   if (path === '/') {
     const responseText = 'Hello Holberton School!';
-    res.setHeader('Content-Type', 'text/plain');
-    res.setHeader('Content-Length', Buffer.byteLength(responseText));
-    res.statusCode = 200;
+    res.writeHead(200, {
+      'Content-Type': 'text/plain',
+      'Content-Length': Buffer.byteLength(responseText),
+    });
     res.end(responseText);
   } else if (path === '/students') {
     countStudents(databaseFile)
       .then((studentData) => {
         const responseText = `This is the list of our students\n${studentData}`;
-        res.setHeader('Content-Type', 'text/plain');
-        res.setHeader('Content-Length', Buffer.byteLength(responseText));
-        res.statusCode = 200;
+        res.writeHead(200, {
+          'Content-Type': 'text/plain',
+          'Content-Length': Buffer.byteLength(responseText),
+        });
         res.end(responseText);
       })
       .catch((error) => {
         const errorMessage = error.message;
-        res.setHeader('Content-Type', 'text/plain');
-        res.setHeader('Content-Length', Buffer.byteLength(errorMessage));
-        res.statusCode = 500;
+        res.writeHead(500, {
+          'Content-Type': 'text/plain',
+          'Content-Length': Buffer.byteLength(errorMessage),
+        });
         res.end(errorMessage);
       });
   } else {
     const responseText = 'Not Found';
-    res.setHeader('Content-Type', 'text/plain');
-    res.setHeader('Content-Length', Buffer.byteLength(responseText));
-    res.statusCode = 404;
+    res.writeHead(404, {
+      'Content-Type': 'text/plain',
+      'Content-Length': Buffer.byteLength(responseText),
+    });
     res.end(responseText);
   }
 };
