@@ -64,46 +64,30 @@ const requestHandler = async (req, res) => {
 
   if (path === '/') {
     const responseText = 'Hello Holberton School!';
-    res
-      .writeHead(200, {
-        'Content-Type': 'text/plain',
-        'Content-Length': Buffer.byteLength(responseText),
-      })
-      .end(responseText);
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    res.end(responseText);
   } else if (path === '/students') {
     try {
       const studentData = await countStudents(databaseFile);
       const responseText = `This is the list of our students\n${studentData}`;
-      res
-        .writeHead(200, {
-          'Content-Type': 'text/plain',
-          'Content-Length': Buffer.byteLength(responseText),
-        })
-        .end(responseText);
+      res.writeHead(200, { 'Content-Type': 'text/plain' });
+      res.end(responseText);
     } catch (error) {
       const errorMessage = error.message;
-      res
-        .writeHead(500, {
-          'Content-Type': 'text/plain',
-          'Content-Length': Buffer.byteLength(errorMessage),
-        })
-        .end(errorMessage);
+      res.writeHead(500, { 'Content-Type': 'text/plain' });
+      res.end(errorMessage);
     }
   } else {
     const responseText = 'Not Found';
-    res
-      .writeHead(404, {
-        'Content-Type': 'text/plain',
-        'Content-Length': Buffer.byteLength(responseText),
-      })
-      .end(responseText);
+    res.writeHead(404, { 'Content-Type': 'text/plain' });
+    res.end(responseText);
   }
 };
 
 const app = http.createServer(requestHandler);
 
 app.listen(PORT, () => {
-  process.stdout.write(`Server listening at http://localhost:${PORT}`);
+  process.stdout.write(`Server listening at http://localhost:${PORT}\n`);
 });
 
 module.exports = app;
