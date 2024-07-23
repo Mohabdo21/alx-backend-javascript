@@ -2,7 +2,7 @@ const http = require('http');
 const fs = require('fs').promises;
 
 const PORT = 1245;
-const databaseFile = process.argv[2];
+const databaseFile = process.argv.length > 2 ? process.argv[2] : '';
 
 /**
  * Reads the CSV file and returns student statistics.
@@ -63,20 +63,40 @@ const requestHandler = async (req, res) => {
   const path = req.url;
 
   if (path === '/') {
-    res.writeHead(200, { 'Content-Type': 'text/plain' });
-    res.end('Hello Holberton School!');
+    const responseText = 'Hello Holberton School!';
+    res
+      .writeHead(200, {
+        'Content-Type': 'text/plain',
+        'Content-Length': Buffer.byteLength(responseText),
+      })
+      .end(responseText);
   } else if (path === '/students') {
     try {
       const studentData = await countStudents(databaseFile);
-      res.writeHead(200, { 'Content-Type': 'text/plain' });
-      res.end(`This is the list of our students\n${studentData}`);
+      const responseText = `This is the list of our students\n${studentData}`;
+      res
+        .writeHead(200, {
+          'Content-Type': 'text/plain',
+          'Content-Length': Buffer.byteLength(responseText),
+        })
+        .end(responseText);
     } catch (error) {
-      res.writeHead(500, { 'Content-Type': 'text/plain' });
-      res.end(error.message);
+      const errorMessage = error.message;
+      res
+        .writeHead(500, {
+          'Content-Type': 'text/plain',
+          'Content-Length': Buffer.byteLength(errorMessage),
+        })
+        .end(errorMessage);
     }
   } else {
-    res.writeHead(404, { 'Content-Type': 'text/plain' });
-    res.end('Not Found');
+    const responseText = 'Not Found';
+    res
+      .writeHead(404, {
+        'Content-Type': 'text/plain',
+        'Content-Length': Buffer.byteLength(responseText),
+      })
+      .end(responseText);
   }
 };
 
