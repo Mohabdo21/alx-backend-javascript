@@ -72,7 +72,7 @@ const requestHandler = async (req, res) => {
       res.writeHead(200, { 'Content-Type': 'text/plain' });
       res.end(`This is the list of our students\n${studentData}`);
     } catch (error) {
-      res.writeHead(400, { 'Content-Type': 'text/plain' });
+      res.writeHead(500, { 'Content-Type': 'text/plain' });
       res.end(error.message);
     }
   } else {
