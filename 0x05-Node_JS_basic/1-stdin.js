@@ -12,7 +12,3 @@ process.stdin.on('readable', () => {
 process.stdin.on('end', () => {
   process.stdout.write('This important software is now closing\n');
 });
-
-// process.stdin.on('error', (err) => {
-//   process.stderr.write(`An error occurred: ${err.message}\n`);
-// });
