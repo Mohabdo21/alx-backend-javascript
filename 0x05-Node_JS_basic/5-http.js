@@ -72,7 +72,7 @@ const requestHandler = (req, res) => {
       'Content-Type': 'text/plain',
       'Content-Length': Buffer.byteLength(responseText),
     });
-    res.write(responseText);
+    res.write(Buffer.from(responseText));
     res.end();
   } else if (path === '/students') {
     countStudents(databaseFile)
@@ -82,8 +82,7 @@ const requestHandler = (req, res) => {
           'Content-Type': 'text/plain',
           'Content-Length': Buffer.byteLength(responseText),
         });
-        res.write(responseText);
-        res.end();
+        res.write(Buffer.from(responseText));
       })
       .catch((error) => {
         const errorMessage = error.message;
@@ -91,8 +90,7 @@ const requestHandler = (req, res) => {
           'Content-Type': 'text/plain',
           'Content-Length': Buffer.byteLength(errorMessage),
         });
-        res.write(errorMessage);
-        res.end();
+        res.write(Buffer.from(errorMessage));
       });
   } else {
     const responseText = 'Not Found';
@@ -100,7 +98,7 @@ const requestHandler = (req, res) => {
       'Content-Type': 'text/plain',
       'Content-Length': Buffer.byteLength(responseText),
     });
-    res.write(responseText);
+    res.write(Buffer.from(responseText));
     res.end();
   }
 };
