@@ -14,6 +14,11 @@ rl.on('line', (input) => {
   console.log(`Your name is: ${input}`);
 });
 
+// Handle the end event on the input stream
+process.stdin.on('end', () => {
+  rl.close();
+});
+
 // Handle the close event
 rl.on('close', () => {
   console.log('This important software is now closing');
