@@ -85,7 +85,7 @@ const requestHandler = (req, res) => {
         res.write(Buffer.from(responseText));
       })
       .catch((error) => {
-        const errorMessage = error.message;
+        const errorMessage = `This is the list of our students\n${error.message}`;
         res.writeHead(500, {
           'Content-Type': 'text/plain',
           'Content-Length': Buffer.byteLength(errorMessage),
