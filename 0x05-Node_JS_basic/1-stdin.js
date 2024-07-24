@@ -30,7 +30,7 @@ process.stdin.on('readable', () => {
   const chunk = process.stdin.read();
 
   if (chunk) {
-    console.log(`Your name is: ${chunk.toString().trim()}`);
+    process.stdout.write(`Your name is: ${chunk.toString().trim()}\n`);
   }
 });
 
