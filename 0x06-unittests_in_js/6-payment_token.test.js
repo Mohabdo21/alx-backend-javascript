@@ -7,7 +7,7 @@ describe('getPaymentTokenFromAPI', () => {
   it('should return a resolved promise with a success message when inout is true', () => new Promise((done) => {
     getPaymentTokenFromAPI(true)
       .then((res) => {
-        expect(res).to.deep.equal({
+        expect(res).toStrictEqual({
           data: 'Successful response from the API',
         });
         done();
